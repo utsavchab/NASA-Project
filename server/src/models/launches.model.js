@@ -173,7 +173,7 @@ async function downloadSpaceXLaunches(start) {
   } else {
     const fieldsToDelete = ['name', 'date_local', 'payloads', 'flight_number']
 
-    spaceXLaunches.map(async (launch) => {
+    await spaceXLaunches.map(async (launch) => {
       launch.mission = launch.name
       launch.launchDate = new Date(launch.date_local)
       launch.rocket = launch.rocket.name
@@ -198,9 +198,9 @@ async function loadSpaceXLaunches() {
   ).sort('-flightNumber')
 
   if (latestSpaceXLaunch) {
-    downloadSpaceXLaunches(latestSpaceXLaunch.flightNumber)
+    await downloadSpaceXLaunches(latestSpaceXLaunch.flightNumber)
   } else {
-    downloadSpaceXLaunches(0)
+    await downloadSpaceXLaunches(0)
   }
 }
 
