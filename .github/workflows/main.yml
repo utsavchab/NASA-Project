@@ -14,7 +14,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '21'
-      - name: Install node packages
+      - name: Install Server Packages
+        run: npm run install-server
+      - name: Install Client Packages
+        run: npm run install-client
+      - name: Install Main Directory Packages
         run: npm install
       - name: Running all the test
         run: npm run test
