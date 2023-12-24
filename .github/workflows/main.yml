@@ -7,13 +7,18 @@ on:
 
 jobs:
   build:
+    env:
+      CI: true
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x, 20.x, 21.x]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js version 21
+      - name: Use Node.js version ${{matrix.node-version}}
         uses: actions/setup-node@v3
         with:
-          node-version: '21'
+          node-version: ${{matrix.node-version}}
       - name: Install Server Packages
         run: npm run install-server
       - name: Install Client Packages

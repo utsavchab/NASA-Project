@@ -13,7 +13,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "set CI=false && set BUILD_PATH=../server/public&& react-scripts build",
+    "build": "set BUILD_PATH=../server/public&& react-scripts build",
     "test": "",
     "eject": "react-scripts eject"
   },
