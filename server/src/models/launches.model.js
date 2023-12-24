@@ -170,25 +170,25 @@ async function downloadSpaceXLaunches(start) {
 
   if (!spaceXLaunches.length) {
     console.log('No New Launches Found in SpaceX Data')
-    return false
+  } else {
+    const fieldsToDelete = ['name', 'date_local', 'payloads', 'flight_number']
+
+    spaceXLaunches.map((launch) => {
+      launch.mission = launch.name
+      launch.launchDate = new Date(launch.date_local)
+      launch.rocket = launch.rocket.name
+      launch.flightNumber = launch.flight_number
+      launch.customers = launch.payloads.flatMap((payload) => payload.customers)
+      launch.isThirdPartyLaunch = true
+      if (launch.success == null) {
+        launch.success = true
+      }
+      fieldsToDelete.map((e) => delete launch[e])
+
+      saveLaunch(launch)
+    })
+    console.log(`Downloaded ${spaceXLaunches.length} Launches from SpaceX API`)
   }
-  const fieldsToDelete = ['name', 'date_local', 'payloads', 'flight_number']
-
-  spaceXLaunches.map((launch) => {
-    launch.mission = launch.name
-    launch.launchDate = new Date(launch.date_local)
-    launch.rocket = launch.rocket.name
-    launch.flightNumber = launch.flight_number
-    launch.customers = launch.payloads.flatMap((payload) => payload.customers)
-    launch.isThirdPartyLaunch = true
-    if (launch.success == null) {
-      launch.success = true
-    }
-    fieldsToDelete.map((e) => delete launch[e])
-
-    saveLaunch(launch)
-  })
-  console.log(`Downloaded ${spaceXLaunches.length} Launches from SpaceX API`)
 }
 
 async function loadSpaceXLaunches() {
