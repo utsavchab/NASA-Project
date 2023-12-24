@@ -173,7 +173,7 @@ async function downloadSpaceXLaunches(start) {
   } else {
     const fieldsToDelete = ['name', 'date_local', 'payloads', 'flight_number']
 
-    spaceXLaunches.map((launch) => {
+    spaceXLaunches.map(async (launch) => {
       launch.mission = launch.name
       launch.launchDate = new Date(launch.date_local)
       launch.rocket = launch.rocket.name
@@ -185,7 +185,7 @@ async function downloadSpaceXLaunches(start) {
       }
       fieldsToDelete.map((e) => delete launch[e])
 
-      saveLaunch(launch)
+      await saveLaunch(launch)
     })
     console.log(`Downloaded ${spaceXLaunches.length} Launches from SpaceX API`)
   }
