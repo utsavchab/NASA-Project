@@ -169,7 +169,8 @@ async function downloadSpaceXLaunches(start) {
   })
 
   if (!spaceXLaunches.length) {
-    return console.log('No New Launches Found in SpaceX Data')
+    console.log('No New Launches Found in SpaceX Data')
+    return false
   }
   const fieldsToDelete = ['name', 'date_local', 'payloads', 'flight_number']
 
