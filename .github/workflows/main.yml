@@ -14,6 +14,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '21'
-      - run: npm install
-      - run: npm run test
-      - run: npm run build --prefix client
+      - name: Install node packages
+        run: npm install
+      - name: Running all the test
+        run: npm run test
+      - name: Building the client
+        run: npm run build --prefix client

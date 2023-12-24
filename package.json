@@ -6,7 +6,7 @@
   "scripts": {
     "install-server": "npm install --prefix server",
     "install-client": "npm install --prefix client",
-    "install": "npm install --prefix server && npm  install --prefix client && npm install",
+    "install": "npm install cwd server && npm install cwd client",
     "server": "npm run watch --prefix server",
     "client": "npm start --prefix client",
     "start": "concurrently \"npm run server\" \"npm run client\"",
@@ -17,6 +17,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "concurrently": "^8.2.2"
+    "client": "^0.0.1",
+    "concurrently": "^8.2.2",
+    "cwd": "^0.10.0",
+    "server": "^1.0.38"
   }
 }
