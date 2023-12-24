@@ -31,4 +31,4 @@ jobs:
       - name: Building the client
         run: npm run build --prefix client
       - name: Hello ${{secrets.TEST_MONGO_URI}}
-        run:
+        run: node --version
