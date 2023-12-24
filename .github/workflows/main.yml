@@ -20,8 +20,7 @@ jobs:
         run: npm run install-client
       - name: Install Main Directory Packages
         run: npm install
-      - name: Running all the test
-        run: |
-          npm run test -- --env MONGO_URI=${{ secrets.MONGO_URI }} --env SPACEX_API=${{ secrets.SPACEX_API }}
+      - name: Running server tests
+        run: npm run test --prefix server -- --env MONGO_URI=${{ secrets.MONGO_URI }} --env SPACEX_API=${{ secrets.SPACEX_API }}
       - name: Building the client
         run: npm run build --prefix client
