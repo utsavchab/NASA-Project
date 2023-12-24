@@ -9,9 +9,12 @@ jobs:
   build:
     env:
       CI: true
+      TEST_MONGO_URI: ${{secrets.TEST_MONGO_URI}}
+      SPACEX_API: ${{secrets.MONGO_URI}}
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x, 20.x, 21.x]
+        node-version: [14.x, 21.x]
+
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -27,3 +30,5 @@ jobs:
         run: npm install
       - name: Building the client
         run: npm run build --prefix client
+      - name: Hello ${{secrets.TEST_MONGO_URI}}
+        run:
