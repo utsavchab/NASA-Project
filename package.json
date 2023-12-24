@@ -6,10 +6,11 @@
   "scripts": {
     "install-server": "npm install --prefix server",
     "install-client": "npm install --prefix client",
+    "install": "npm install --prefix server && npm  install --prefix client && npm install",
     "server": "npm run watch --prefix server",
     "client": "npm start --prefix client",
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run test --prefix server && npm run test --prefix client",
     "deploy": "npm run build --prefix client && npm run start --prefix server",
     "deploy-cluster": "npm run build --prefix client && npm run cluster --prefix server"
   },
