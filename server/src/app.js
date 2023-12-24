@@ -7,7 +7,7 @@ const helmet = require('helmet')
 
 const planetsRouter = require('./routes/planets/planets.router')
 const launchesRouter = require('./routes/launches/launches.router')
-const v1ApiRouter = require('./routes/API/v1.api')
+const v1ApiRouter = require('./routes/api/v1.api')
 
 const app = express()
 
