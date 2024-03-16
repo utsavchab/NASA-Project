@@ -1,0 +1,7 @@
+type Query {
+  planets: [Planet]
+}
+
+type Planet {
+  keplerName: String!
+}

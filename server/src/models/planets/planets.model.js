@@ -23,7 +23,7 @@ async function loadPlanetsData() {
     )
   }
   await new Promise((resolve, reject) => {
-    fs.createReadStream('./src/models/kepler_data.csv') // returns an event emitter
+    fs.createReadStream('./src/models/planets/kepler_data.csv') // returns an event emitter
       .pipe(
         parse({
           comment: '#',

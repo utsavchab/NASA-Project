@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose')
-const { Planet } = require('./planets.model')
+const { Planet } = require('../planets/planets.model')
 const axios = require('axios')
 
 const DEFAULT_FLIGHT_NUMBER = 100

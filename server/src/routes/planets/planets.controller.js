@@ -1,4 +1,4 @@
-const { fetchPlanetsData } = require('../../models/planets.model')
+const { fetchPlanetsData } = require('../../models/planets/planets.model')
 
 async function getAllPlanets(req, res) {
   const planets = await fetchPlanetsData()

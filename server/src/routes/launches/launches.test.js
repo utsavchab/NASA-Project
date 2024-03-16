@@ -1,13 +1,14 @@
 const request = require('supertest')
 const app = require('../../app')
 const { connectToDB, disconnectToDB } = require('../../config/database.config')
-const { loadPlanetsData } = require('../../models/planets.model')
+const { loadPlanetsData } = require('../../models/planets/planets.model')
+
 require('dotenv').config()
+
 beforeAll(async () => {
   await connectToDB(process.env.TEST_MONGO_URI)
   await loadPlanetsData()
 })
-
 afterAll(async () => {
   await disconnectToDB()
 })

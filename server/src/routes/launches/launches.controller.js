@@ -3,14 +3,14 @@ const {
   getALaunch,
   addNewLaunch,
   abortALaunch,
-} = require('../../models/launches.model')
+} = require('../../models/launches/launches.model')
 const { getPagination } = require('../../utils/query')
 
 async function httpGetAllLaunches(req, res) {
   const { skip, limit } = getPagination(req.query)
 
   const launches = await getAllLaunches(skip, limit)
-
+  console.log(launches)
   return res.status(200).json({
     success: true,
     data: launches,

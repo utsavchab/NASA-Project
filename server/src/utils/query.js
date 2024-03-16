@@ -6,7 +6,7 @@ function getPagination(query) {
   const limit = Math.abs(query.limit) || DEFAULT_LIMIT
   const page = Math.abs(query.page) || DEFAULT_PAGE
   const skip = (page - 1) * limit
-
+  console.log(skip, limit)
   return { skip, limit }
 }
 

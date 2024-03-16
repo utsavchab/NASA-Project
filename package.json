@@ -16,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "apollo-server-express": "^3.13.0",
     "client": "^0.0.1",
     "concurrently": "^8.2.2",
     "cwd": "^0.10.0",

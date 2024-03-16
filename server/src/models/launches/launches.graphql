@@ -1,0 +1,15 @@
+type Query {
+  launches: [Launch]!
+}
+
+type Launch {
+  flightNumber: Int!
+  mission: String!
+  rocket: String!
+  launchDate: String!
+  upcoming: Boolean!
+  success: Boolean!
+  customers: [String]!
+  isThirdPartyLaunch: Boolean!
+  target: String
+}
