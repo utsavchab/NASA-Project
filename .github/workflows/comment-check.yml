@@ -11,6 +11,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Set up jq
+        run: sudo apt-get install jq
+
       - name: Check for unresolved comments
         id: comment-check
         run: |
@@ -19,6 +22,8 @@ jobs:
             "https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER/comments")
 
           UNRESOLVED_COMMENTS=$(echo "$COMMENTS" | jq '[.[] | select(.resolved == false)] | length')
+
+          echo "Number of unresolved comments: $UNRESOLVED_COMMENTS"
 
           if [ "$UNRESOLVED_COMMENTS" -gt 0 ]; then
             echo "::set-output name=status::failure"
@@ -30,7 +35,7 @@ jobs:
 
       - name: Set PR status
         run: |
-          STATUS=$(echo "${{ steps.comment-check.outputs.status }}")
+          STATUS="${{ steps.comment-check.outputs.status }}"
           if [ "$STATUS" == "failure" ]; then
             curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
               -d '{"state": "failure", "description": "There are unresolved comments.", "context": "PR Comment Check"}' \
