@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up jq
-        run: sudo apt-get install jq
+        run: sudo apt-get install -y jq
 
       - name: Check for unresolved comments
         id: comment-check
@@ -26,16 +26,16 @@ jobs:
           echo "Number of unresolved comments: $UNRESOLVED_COMMENTS"
 
           if [ "$UNRESOLVED_COMMENTS" -gt 0 ]; then
-            echo "::set-output name=status::failure"
+            echo "status=failure" >> $GITHUB_ENV
             echo "There are unresolved comments."
           else
-            echo "::set-output name=status::success"
+            echo "status=success" >> $GITHUB_ENV
             echo "All comments are resolved."
           fi
 
       - name: Set PR status
         run: |
-          STATUS="${{ steps.comment-check.outputs.status }}"
+          STATUS=${{ env.status }}
           if [ "$STATUS" == "failure" ]; then
             curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
               -d '{"state": "failure", "description": "There are unresolved comments.", "context": "PR Comment Check"}' \
