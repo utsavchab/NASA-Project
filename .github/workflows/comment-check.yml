@@ -1,0 +1,41 @@
+name: PR Comment Check
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+jobs:
+  check-comments:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Check for unresolved comments
+        id: comment-check
+        run: |
+          PR_NUMBER=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+          COMMENTS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER/comments")
+
+          UNRESOLVED_COMMENTS=$(echo "$COMMENTS" | jq '[.[] | select(.resolved == false)] | length')
+
+          if [ "$UNRESOLVED_COMMENTS" -gt 0 ]; then
+            echo "::set-output name=status::failure"
+            echo "There are unresolved comments."
+          else
+            echo "::set-output name=status::success"
+            echo "All comments are resolved."
+          fi
+
+      - name: Set PR status
+        run: |
+          STATUS=$(echo "${{ steps.comment-check.outputs.status }}")
+          if [ "$STATUS" == "failure" ]; then
+            curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              -d '{"state": "failure", "description": "There are unresolved comments.", "context": "PR Comment Check"}' \
+              "https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}"
+          else
+            curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              -d '{"state": "success", "description": "All comments are resolved.", "context": "PR Comment Check"}' \
+              "https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}"
