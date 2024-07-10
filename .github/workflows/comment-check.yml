@@ -23,7 +23,7 @@ jobs:
 
           UNRESOLVED_COMMENTS=$(echo "$COMMENTS" | jq '[.[] | select(.state == "OPEN")] | length')
 
-          echo "Number of unresolved comments: $UNRESOLVED_COMMENTS"
+          echo "Number of unresolved comments: $UNRESOLVED_COMMENTS , for PR $PR_NUMBER"
 
           if [ "$UNRESOLVED_COMMENTS" -gt 0 ]; then
             echo "status=failure" >> $GITHUB_ENV
