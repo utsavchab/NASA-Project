@@ -35,8 +35,7 @@ jobs:
 
       - name: Set PR status
         run: |
-          STATUS=${{ env.status }}
-          if [ "$STATUS" == "failure" ]; then
+          if [ "${{ env.status }}" == "failure" ]; then
             curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
               -d '{"state": "failure", "description": "There are unresolved comments.", "context": "PR Comment Check"}' \
               "https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}"
