@@ -21,6 +21,7 @@ describe('Test GET /api/v1/launches', () => {
 
     expect(response.body.success).toBe(true)
     expect(Array.isArray(response.body.data)).toBe(true)
+    expect(true).toBe(true) //
   })
 })
 
